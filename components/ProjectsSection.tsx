@@ -7,7 +7,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" aria-labelledby="projects-heading" className="border-b border-hairline py-20 md:py-28">
       <Container>
-        <SectionHeading eyebrow="03 — Case studies" title="Featured projects" id="projects-heading" />
+        <SectionHeading eyebrow="03 — Case studies" title="Featured Projects" id="projects-heading" />
         <div className="flex flex-col">
           {projects.map((project, i) => (
             <Link

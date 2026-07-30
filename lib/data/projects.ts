@@ -156,4 +156,54 @@ export const projects: Project[] = [
     lessons:
       'This was a useful lesson in how much of "accuracy" in a UI is really about understanding the browser\u2019s rendering and timing pipeline, not the business logic sitting on top of it.',
   },
+  {
+    slug: 'fids',
+    name: 'Flight Information Display System (FIDS)',
+    summary:
+      'A real-time Flight Information Display System for airports that presents live arrivals, departures, gate assignments, boarding status, delays, and cancellations across passenger-facing information displays.',
+    stack: ['TypeScript', 'React', 'REST/WebSocket data feed'],
+    role: 'Sole engineer',
+    timeline: 'Demo project',
+    problem:
+      'Airport passengers and staff require accurate, continuously updated flight information displayed across multiple screens. The challenge was to deliver timely updates with high readability while ensuring display consistency and minimal latency.',
+    goals: [
+      'Display real-time arrivals and departures without manual refresh',
+      'Present flight status, gate changes, boarding information, delays, and cancellations clearly',
+      'Provide a responsive interface optimized for public information displays',
+    ],
+    architecture:
+      'The application is built with React and TypeScript and consumes a live flight data feed through REST and WebSocket connections. Flight records are stored in a normalized client-side state keyed by flight ID, allowing incremental updates whenever flight information changes. The UI subscribes to state changes and refreshes only affected display components, minimizing unnecessary rendering while maintaining smooth real-time updates.',
+    decisions: [
+      {
+        decision:
+          'Normalized client-side store keyed by flight ID',
+        reasoning:
+          'Individual flight updates are received independently. Storing flights by unique identifier enables efficient per-flight updates without replacing the entire dataset.',
+      },
+      {
+        decision:
+          'Event-driven real-time updates instead of periodic polling',
+        reasoning:
+          'Using WebSockets allows flight displays to update immediately when operational data changes, reducing latency and unnecessary network traffic.',
+      },
+    ],
+    tradeoffs: [
+      {
+        tradeoff:
+          'Client-side in-memory dataset vs. server-side rendering',
+        explanation:
+          'Maintaining the active flight dataset in memory provides fast rendering and instant updates, although extremely large datasets would eventually require pagination or segmented display feeds. For typical airport display boards, the active flight volume remains well within practical limits.',
+      },
+    ],
+    challenges:
+      'The primary challenge was maintaining display consistency while flight information changed rapidly. Out-of-order updates were resolved using server timestamps so that only the latest operational state appeared on passenger displays.',
+    performance:
+      'Incremental state updates ensure that only modified flights are re-rendered, while efficient rendering techniques keep screen refreshes smooth even during periods of frequent operational changes.',
+    scalability:
+      'The architecture supports multiple display boards consuming the same live data source and can be extended to handle different terminals, concourses, languages, and display layouts without changing the underlying data model.',
+    security:
+      'The system operates as a read-only client that consumes authenticated backend services. All operational changes originate from airport and airline operational systems, preventing unauthorized modifications from the display application.',
+    lessons:
+      'Building a FIDS highlighted that reliability and clarity are just as important as real-time performance. Accurate state synchronization, resilient update handling, and clear visual presentation are critical for operational and passenger-facing airport systems.',
+  }
 ]
