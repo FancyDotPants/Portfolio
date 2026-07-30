@@ -48,5 +48,5 @@ export type EducationItem = {
 
 export const education: EducationItem[] = [
   { degree: "Bachelor's", field: 'Mechanical Engineering', level: 'Bachelor' },
-  { degree: "Master's", field: 'Information Technology', level: 'Master' },
+  { degree: "Master's", field: 'Information Technology (IT)', level: 'Master' },
 ]
